@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    }
+  ],
+  "env": {
+    "AMADEUS_CLIENT_ID": "r6gJ8G7Cloc1vZNAFB6rz0GQHrcf4aHH",
+    "AMADEUS_CLIENT_SECRET": "7YD56sAfZsfvzid8"
+  }
+}

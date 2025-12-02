@@ -1,0 +1,21 @@
+{
+  "name": "flight-price-landing-page",
+  "version": "1.0.0",
+  "description": "Landing page for flight price searches with Amadeus API integration",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "flight",
+    "amadeus",
+    "landing-page",
+    "delta",
+    "alaska-airlines"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}

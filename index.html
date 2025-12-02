@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Perfect Flight | Best Delta & Alaska Airlines Deals</title>
+    <meta name="description" content="Search and compare flight prices from Delta and Alaska Airlines. Get instant quotes and book your next adventure today!">
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID'); // Replace with your Facebook Pixel ID
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-plane-departure"></i>
+                <span>FlightFinder</span>
+            </div>
+            <nav class="nav">
+                <a href="#search">Search Flights</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="search">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">Find Your Perfect Flight</h1>
+            <p class="hero-subtitle">Search and compare real-time prices from Delta & Alaska Airlines</p>
+            
+            <!-- Flight Search Form -->
+            <div class="search-card">
+                <form id="flightSearchForm" class="flight-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="origin">
+                                <i class="fas fa-plane-departure"></i> From
+                            </label>
+                            <input type="text" id="origin" name="origin" placeholder="e.g., LAX, JFK, ATL" required maxlength="3" pattern="[A-Za-z]{3}">
+                            <small>Enter 3-letter airport code</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="destination">
+                                <i class="fas fa-plane-arrival"></i> To
+                            </label>
+                            <input type="text" id="destination" name="destination" placeholder="e.g., SEA, MIA, DEN" required maxlength="3" pattern="[A-Za-z]{3}">
+                            <small>Enter 3-letter airport code</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="departureDate">
+                                <i class="fas fa-calendar-alt"></i> Departure Date
+                            </label>
+                            <input type="date" id="departureDate" name="departureDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="returnDate">
+                                <i class="fas fa-calendar-check"></i> Return Date (Optional)
+                            </label>
+                            <input type="date" id="returnDate" name="returnDate">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adults">
+                                <i class="fas fa-user"></i> Adults
+                            </label>
+                            <select id="adults" name="adults" required>
+                                <option value="1" selected>1 Adult</option>
+                                <option value="2">2 Adults</option>
+                                <option value="3">3 Adults</option>
+                                <option value="4">4 Adults</option>
+                                <option value="5">5 Adults</option>
+                                <option value="6">6 Adults</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="travelClass">
+                                <i class="fas fa-chair"></i> Class
+                            </label>
+                            <select id="travelClass" name="travelClass" required>
+                                <option value="ECONOMY" selected>Economy</option>
+                                <option value="PREMIUM_ECONOMY">Premium Economy</option>
+                                <option value="BUSINESS">Business</option>
+                                <option value="FIRST">First Class</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-search" id="searchBtn">
+                        <i class="fas fa-search"></i> Search Flights
+                    </button>
+                </form>
+                
+                <!-- Loading Spinner -->
+                <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Searching for the best flight deals...</p>
+                </div>
+                
+                <!-- Error Message -->
+                <div id="errorMessage" class="error-message" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p id="errorText"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flight Results Section -->
+    <section class="results-section" id="results" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Available Flights</h2>
+            <p class="section-subtitle">Showing results from Delta and Alaska Airlines</p>
+            
+            <div id="flightResults" class="flight-results">
+                <!-- Results will be dynamically inserted here -->
+            </div>
+            
+            <div class="lead-capture-cta">
+                <div class="cta-content">
+                    <h3>Ready to Book Your Flight?</h3>
+                    <p>Chat with us on Facebook Messenger to complete your booking and get exclusive deals!</p>
+                    <button class="btn-messenger" onclick="openMessenger()">
+                        <i class="fab fa-facebook-messenger"></i> Chat on Messenger
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>1. Search</h3>
+                    <p>Enter your travel details and search for flights from Delta and Alaska Airlines</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-list"></i>
+                    </div>
+                    <h3>2. Compare</h3>
+                    <p>View real-time prices and flight options tailored to your needs</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fab fa-facebook-messenger"></i>
+                    </div>
+                    <h3>3. Connect</h3>
+                    <p>Chat with us on Messenger to complete your booking and get support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="feature-grid">
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <h3>Real-Time Prices</h3>
+                    <p>Get instant, up-to-date flight prices</p>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure & Trusted</h3>
+                    <p>Safe and reliable booking process</p>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Get help anytime via Messenger</p>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-tags"></i>
+                    <h3>Best Deals</h3>
+                    <p>Compare Delta & Alaska Airlines prices</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-plane-departure"></i> FlightFinder</h3>
+                    <p>Your trusted partner for Delta and Alaska Airlines flight searches</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#search">Search Flights</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" onclick="openMessenger()"><i class="fab fa-facebook-messenger"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 FlightFinder. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Facebook Messenger Chat Plugin -->
+    <div id="fb-root"></div>
+    <div id="fb-customer-chat" class="fb-customerchat"></div>
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "YOUR_PAGE_ID"); // Replace with your Facebook Page ID
+        chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v18.0'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+[build]
+  publish = "."
+  functions = "api"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[functions]
+  node_bundler = "esbuild"
+
+# Environment variables (set these in Netlify dashboard instead for security)
+# Or add them here for testing
+[context.production.environment]
+  AMADEUS_CLIENT_ID = "r6gJ8G7Cloc1vZNAFB6rz0GQHrcf4aHH"
+  AMADEUS_CLIENT_SECRET = "7YD56sAfZsfvzid8"
+
+[context.deploy-preview.environment]
+  AMADEUS_CLIENT_ID = "r6gJ8G7Cloc1vZNAFB6rz0GQHrcf4aHH"
+  AMADEUS_CLIENT_SECRET = "7YD56sAfZsfvzid8"
